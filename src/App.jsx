@@ -10,6 +10,8 @@ import ItemListContainer from './components/ItemListContainer';
 
 // Páginas
 import PrincipalUsuario from './pages/usuarios/PrincipalUsuario';
+import ProductosUsuario from "./pages/usuarios/ProductosUsuario";
+
 
 function App() {
   return (
@@ -19,15 +21,8 @@ function App() {
 
       {/* Contenido según la ruta */}
       <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="contenido-ajustado">
-              <PrincipalUsuario />
-            </div>
-          }
-        />
-
+        <Route path="/" element={ <div className="contenido-ajustado"> <PrincipalUsuario /></div>}/>
+        <Route path="/productos" element={<ProductosUsuario />} />        
         {/* Puedes agregar más rutas aquí si lo necesitas */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

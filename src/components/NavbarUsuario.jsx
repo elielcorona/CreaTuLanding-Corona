@@ -1,6 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useCarrito } from "../context/CarritoContext";
 
 export default function NavbarUsuario() {
+  const location = useLocation();
+  const { carrito } = useCarrito();
+
+  const mostrarCarrito = location.pathname === '/productos';
+  const cantidad = carrito.length;
+
   return (
     <nav className="navbar navbar-expand-lg fixed-top bg-transparent px-4">
       <div className="container-fluid">
@@ -20,13 +27,20 @@ export default function NavbarUsuario() {
             <li className="nav-item"><Link className="nav-link nav-page text-white" to="/historial">Historial</Link></li>
             <li className="nav-item"><Link className="nav-link nav-page text-white" to="/planes">Planes</Link></li>
             <li className="nav-item"><Link className="nav-link nav-page text-white" to="/productos">Productos</Link></li>
-            <li className="nav-item">
-              <Link className="nav-link nav-page text-white" to="/login-usuario" id="logout">
-                Cerrar sesión
-              </Link>
-            </li>
+            <li className="nav-item"><Link className="nav-link nav-page text-white" to="/login-usuario">Cerrar sesión</Link></li>
           </ul>
         </div>
+
+        {/* Carrito flotante solo en /productos */}
+        {mostrarCarrito && (
+          <Link
+            to="/carrito"
+            className="btn btn-info position-fixed bottom-0 end-0 m-4 rounded-pill fw-bold"
+            style={{ zIndex: 9999 }}
+          >
+            🛒 {carrito.length}
+          </Link>
+        )}
       </div>
     </nav>
   );
